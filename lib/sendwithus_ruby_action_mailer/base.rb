@@ -67,6 +67,12 @@ module SendWithUsMailer
         public_instance_methods - superclass.public_instance_methods
       end
 
+      # From https://github.com/sendwithus/sendwithus_ruby_action_mailer/pull/9/files
+      # Add our mailer_methods to the set of methods the mailer responds to.
+      def respond_to?(method_name, include_all = false)
+        mailer_methods.include?(method_name.to_sym) || super
+      end
+
       # We use <tt>::method_missing</tt> to delegate
       # mailer methods to a new instance and return the
       # <tt>SendWithUsMailer::MailParams</tt> object.
